@@ -18,7 +18,7 @@
 	"dependencies": {
 		"@types/filesystem": "^0.0.32",
 		"@types/uuid": "^9.0.1",
-		"better-sqlite3": "^7.6.2",
+		"better-sqlite3": "^8.6.0",
 		"console-stamp": "^3.0.3",
 		"ip": "^1.1.5",
 		"minimist": "^1.2.5"
