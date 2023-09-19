@@ -95,7 +95,8 @@ export class Discovery extends EventEmitter {
 	 * Unanounce Library to network
 	 */
 	async unannounce(): Promise<void> {
-		assert(this.announceTimer);
+		// TODO: Not sure why this freezes in certain cases
+		// assert(this.announceTimer);
 		clearInterval(this.announceTimer);
 		this.announceTimer = null;
 		const discoveryMessage = this.createDiscoveryMessage(Action.Logout, this.options);
