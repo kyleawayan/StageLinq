@@ -55,7 +55,7 @@ export class DbConnection {
 	 * @returns {Promise<Track>}
 	 */
 	async getTrackInfo(_trackPath: string): Promise<TrackDBEntry> {
-		const trackPath = _trackPath.split('/').slice(5, _trackPath.length).join('/')
+		const trackPath = _trackPath.split('/').slice(3, _trackPath.length).join('/')
 		const result: TrackDBEntry[] = this.querySource('SELECT * FROM Track WHERE path = (?) LIMIT 1', trackPath);
 		if (!result) throw new Error(`Could not find track: ${trackPath} in database.`);
 
