@@ -54,8 +54,19 @@ export class DbConnection {
 	 * @param {string} _trackPath Path of track on the source's filesystem.
 	 * @returns {Promise<Track>}
 	 */
-	async getTrackInfo(_trackPath: string): Promise<TrackDBEntry> {
-		const trackPath = _trackPath.split('/').slice(3, _trackPath.length).join('/')
+	async getTrackInfo(_trackPath: string, sourceName: string): Promise<TrackDBEntry> {
+		let trackPath;
+
+		// Modify it to match how it is in the Engine DJ database
+		if (_trackPath.includes("Engine Library/Music/")) {
+			// Has default Engine DJ Music folder structure
+			trackPath = _trackPath.substring(_trackPath.indexOf("Music"));
+		} else {
+			// File is somewhere not in the Engine DJ Music folder structure
+			trackPath = "../" + _trackPath.replace(new RegExp(`^/${sourceName}/`), '');
+		}
+
+		console.log("!!! trackPath", trackPath, sourceName)
 		const result: TrackDBEntry[] = this.querySource('SELECT * FROM Track WHERE path = (?) LIMIT 1', trackPath);
 		if (!result) throw new Error(`Could not find track: ${trackPath} in database.`);
 
